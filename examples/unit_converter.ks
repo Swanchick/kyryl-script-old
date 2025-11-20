@@ -6,8 +6,6 @@ function to_inches(meters: float): float {
     return meters * 39.37f;
 }
 
-function main() {
-    let result = to_inches(10f);
+let result = to_inches(10f);
     
-    println(result);
-}
+println(result);
