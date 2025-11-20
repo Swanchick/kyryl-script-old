@@ -165,8 +165,8 @@ println("Hello, World!");
 function bubble_sort(numbers: [int]): [int] {
     for j in range(len(numbers)) {
         for i in range(len(numbers) - j - 1) {
-            let n1 = numbers[i];
-            let n2 = numbers[i + 1];
+            let n1 = numbers[i]!;
+            let n2 = numbers[i + 1]!;
 
             if n1 > n2 {
                 numbers[i] = n2;
@@ -177,6 +177,13 @@ function bubble_sort(numbers: [int]): [int] {
     return numbers;
 }
 ```
+
+#### Note!
+
+There we are using `numbers[i]!`, which means explicit cloning. Since, every value that we get, is originally not an actual value, but rahter an address to that value.
+That's why in this specific case, we are using cloning.
+
+---
 
 ### Triangle Drawing
 ```ks
