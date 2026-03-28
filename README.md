@@ -70,27 +70,33 @@ cargo run -- examples/test.ks
 
 ## Anchor System
 
-KyrylScript uses a custom **Anchor System** for memory management — a lightweight, safe alternative to traditional garbage collection.
+KyrylScript uses the **Anchor System**, a lightweight memory management model that ensures safety and efficiency without garbage collection or complex ownership rules.
 
-### Key Concepts
+### How It Works
 
-- **Automatic memory safety**: Anchors automatically track objects’ lifetimes, preventing dangling references and memory leaks.
-- **No heavy GC overhead**: Unlike garbage collectors, Anchors do not require runtime pauses for sweeping or collection cycles.
-- **Simple semantics**: Anchors are easier to reason about than complex ownership and borrowing models (like Rust), but still maintain safety guarantees.
-- **Stack-like allocation**: Anchors leverage scoped lifetimes where possible, ensuring memory is released as soon as it’s no longer needed.
+- **Scope-based memory**: Every variable belongs to a scope. When the scope exits, all variables declared in that scope are automatically freed.
+- **Escaping values**: If a value from a higher scope is assigned to a variable in a lower scope, it is _not_ freed when the lower scope ends — the value “escapes” and remains alive.
+- **Automatic cleanup**: Only variables that do not escape are removed when their scope ends, keeping memory usage deterministic and predictable.
 
-### How it Works (Conceptually)
+### Example
 
-1. **Anchor creation**: Every allocated object can be assigned an Anchor.
-2. **Scope tracking**: Anchors are tied to scopes (functions, blocks, or modules). Once a scope ends, all Anchors within it are automatically released.
-3. **Reference safety**: Objects can be referenced safely as long as their Anchors are alive. Attempting to use a released Anchor results in a runtime error.
-4. **Performance-oriented**: By combining scope-based cleanup with minimal bookkeeping, the Anchor System provides speed close to manual memory management, without risking unsafe memory access.
+```ks
+let a = 10;
+
+if true {
+    let b = 20;
+    a = b; // value of b escapes the scope and becomes value of a
+}
+// At this point:
+// b is freed because its scope ends
+// a keeps the value 20, which was originally b's
+```
 
 ### Benefits
 
-- Fast and deterministic memory management.
-- Prevents memory leaks without complex ownership rules.
-- Simplifies developer mental load while keeping the VM safe and efficient.
+- **Fast and predictable**: Memory is freed immediately when scopes exit.
+- **Safe**: Escaping values are preserved correctly, avoiding dangling references.
+- **Simple**: Easier to reason about than ownership/borrowing models while keeping safety guarantees.
 
 ---
 
