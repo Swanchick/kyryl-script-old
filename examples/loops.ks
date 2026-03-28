@@ -13,4 +13,3 @@ while current < 100 {
 for i in range(100) {
     println("For loop iteration: ", i);
 }
-

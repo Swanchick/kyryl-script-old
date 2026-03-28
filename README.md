@@ -1,49 +1,52 @@
-# Note: This is last Public Snapshot of KyrylScript
+# KyrylScript (Old) – Public Archive
 
-This repository contains the last open-source version of KyrylScript prior to the development of its new virtual machine.
+**KyrylScript (Old)** is a public archive of an earlier version of KyrylScript featuring the implementation of its virtual machine (VM).
+This version is experimental and primarily for reference and educational purposes. The VM is functional but far from perfect, and some design choices are rough around the edges.
 
-The current VM and the new Anchor System memory model are under active development and not publicly available yet.
-This snapshot remains public to demonstrate the design direction, language features, and architectural approach.
+> An exploration of language runtime and bytecode execution built from scratch in Rust.
 
-If you would like to evaluate the latest version, collaborate, or request access for research or technical review, feel free to contact me at:
--> Kiryll.Swan@gmail.com
+---
 
-# KyrylScript
+## How It Works
 
-**KyrylScript** is a lightweight interpreted programming language designed and built from scratch in Rust.  
-It combines the simplicity of scripting with the clarity of structured typing, offering a unique reference-based runtime without garbage collection.
+KyrylScript programs are executed through several stages:
 
-> A spiritual successor to Lua, with the structural rigor of Rust and the flexibility of Python.
+1. **Lexer**
+   Converts source code into tokens such as identifiers, literals, operators, and keywords.
+
+2. **Parser**
+   Builds an Abstract Syntax Tree (AST) from the token stream, representing program structure.
+
+3. **Semantic Analyzer**
+   Performs scope and type checks, ensuring the program is meaningful.
+
+4. **Compiler**
+   Transforms the AST into bytecode that the VM can execute.
+
+5. **Virtual Machine (VM)**
+   Executes the bytecode instructions, manages memory through reference IDs, and handles control flow and operations.
+
+> **Note:** This is the **first VM implementation** for KyrylScript. It’s experimental, incomplete, and mainly serves as a historical and learning artifact.
 
 ---
 
 ## Features
 
-- **Custom Lexer and Parser**
-  - Hand-written in Rust, with clear syntax trees and tokenization rules.
-
-- **Runtime and Scoping**
-  - Lexical scoping with reference-based variable tracking.
-  - No garbage collector — all memory is managed manually using reference IDs.
-
-- **Type System**
-  - Built-in support for numbers, strings, booleans, lists, tuples, functions, and native values.
-
-- **Control Structures**
-  - If/else, while loops, pattern matching, recursion, scoped blocks.
-
-- **Native Function Registry**
-  - Easily extend the language by registering native Rust functions with the runtime.
+- Hand-written lexer and parser in Rust.
+- Lexical scoping with reference-based memory management (no garbage collector).
+- Basic type system: numbers, strings, booleans, lists, tuples, functions, and native values.
+- Control structures: if/else, while loops, recursion, pattern matching.
+- Native function registry for extending runtime behavior.
 
 ---
 
 ## Getting Started
 
-1. **Clone the repo**
+1. **Clone the repository**
 
 ```bash
-git clone https://github.com/yourname/kyrylscript.git
-cd kyrylscript
+git clone https://github.com/yourname/kyryl-script-old.git
+cd kyryl-script-old
 ```
 
 2. **Build & Run**
@@ -52,28 +55,47 @@ cd kyrylscript
 cargo run -- examples/test.ks
 ```
 
+3. Explore the code to understand the VM implementation and the compilation flow.
+
 ---
 
-## Roadmap
+## Project Structure
 
-* [x] Lexing, Parsing, Runtime
-* [x] Custom Value Model
-* [x] Native Function Integration
-* [x] Basic Control Structures
-* [x] Functional Programming Support
-* [ ] Generics
-* [ ] Module System & Imports
-* [ ] REPL
-* [ ] Object-Oriented Programming System
-* [ ] Online Playground
+- `workspace/ks-core/src/lexer/` – Tokenization logic
+- `workspace/ks-core/src/parser/` – AST generation
+- `workspace/ks-core/src/compiler/` – Bytecode generation
+- `workspace/ks-vm/src/vm/` – The virtual machine executing bytecode
+
+---
+
+## Anchor System
+
+KyrylScript uses a custom **Anchor System** for memory management — a lightweight, safe alternative to traditional garbage collection.
+
+### Key Concepts
+
+- **Automatic memory safety**: Anchors automatically track objects’ lifetimes, preventing dangling references and memory leaks.
+- **No heavy GC overhead**: Unlike garbage collectors, Anchors do not require runtime pauses for sweeping or collection cycles.
+- **Simple semantics**: Anchors are easier to reason about than complex ownership and borrowing models (like Rust), but still maintain safety guarantees.
+- **Stack-like allocation**: Anchors leverage scoped lifetimes where possible, ensuring memory is released as soon as it’s no longer needed.
+
+### How it Works (Conceptually)
+
+1. **Anchor creation**: Every allocated object can be assigned an Anchor.
+2. **Scope tracking**: Anchors are tied to scopes (functions, blocks, or modules). Once a scope ends, all Anchors within it are automatically released.
+3. **Reference safety**: Objects can be referenced safely as long as their Anchors are alive. Attempting to use a released Anchor results in a runtime error.
+4. **Performance-oriented**: By combining scope-based cleanup with minimal bookkeeping, the Anchor System provides speed close to manual memory management, without risking unsafe memory access.
+
+### Benefits
+
+- Fast and deterministic memory management.
+- Prevents memory leaks without complex ownership rules.
+- Simplifies developer mental load while keeping the VM safe and efficient.
 
 ---
 
 ## License
 
-MIT © 2025 Kyryl Lebedenko
+MIT © 2026 Kyryl Lebedenko
 
----
-
-> Created with love by Kyryl Lebedenko 
-
+> Created with love by Kyryl Lebedenko

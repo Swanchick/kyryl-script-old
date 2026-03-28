@@ -5,6 +5,7 @@ KyrylScript is a statically-typed, high-level interpreted programming language d
 ---
 
 ## Table of Contents
+
 - [Language Overview](#language-overview)
 - [Syntax](#syntax)
 - [Data Types](#data-types)
@@ -20,7 +21,9 @@ KyrylScript is a statically-typed, high-level interpreted programming language d
 ---
 
 ## Language Overview
+
 KyrylScript aims to offer:
+
 - Clean, Python-inspired syntax
 - Static and dynamic typing
 - Support for nested data structures
@@ -29,13 +32,16 @@ KyrylScript aims to offer:
 ---
 
 ## Syntax
+
 ### Variable Declaration
+
 ```ks
 let a = 10;
 let text: string = "Hello";
 ```
 
 ### Function Declaration
+
 ```ks
 function add(a: int, b: int): int {
     return a + b;
@@ -45,6 +51,7 @@ function add(a: int, b: int): int {
 ---
 
 ## Data Types
+
 - `int` – Integer numbers
 - `float` – Floating-point numbers (`f` suffix)
 - `string` – Text in double quotes
@@ -54,7 +61,9 @@ function add(a: int, b: int): int {
 ---
 
 ## Control Flow
+
 ### If-Else
+
 ```ks
 if a == 10 {
     println("Yes");
@@ -64,6 +73,7 @@ if a == 10 {
 ```
 
 ### While Loop
+
 ```ks
 while a < 10 {
     println(a);
@@ -74,17 +84,19 @@ while a < 10 {
 ---
 
 ## Functions
+
 Functions must be declared using `function`, can accept typed parameters, and return values of a specified type.
 
 ```ks
-function multiply(x: int, y: int): int {
+function multiply(x int, y int): int {
     return x * y;
 }
 ```
 
 Return type can be `void` if no return value:
+
 ```ks
-function greet(name: string): void {
+function greet(name string): void {
     println("Hello", name);
 }
 ```
@@ -92,12 +104,16 @@ function greet(name: string): void {
 ---
 
 ## Lists and Indexing
+
 KyrylScript supports lists with type homogeneity:
+
 ```ks
 let numbers: [int] = [1, 2, 3];
 numbers[1] = 10;
 ```
+
 Nested indexing is allowed:
+
 ```ks
 let matrix = [[1, 2], [3, 4]];
 println(matrix[1][0]);
@@ -106,7 +122,9 @@ println(matrix[1][0]);
 ---
 
 ## Loops
+
 ### For-Range Loop
+
 ```ks
 for i in range(10) {
     println(i);
@@ -114,6 +132,7 @@ for i in range(10) {
 ```
 
 ### For-In List Loop
+
 ```ks
 for item in list {
     println(item);
@@ -123,9 +142,11 @@ for item in list {
 ---
 
 ## Recursion
+
 KyrylScript supports recursive functions:
+
 ```ks
-function fib(n: int): int {
+function fib(n int): int {
     if n <= 1 {
         return n;
     }
@@ -136,7 +157,9 @@ function fib(n: int): int {
 ---
 
 ## Comments
+
 Use `//` to add single-line comments:
+
 ```ks
 // This is a comment
 ```
@@ -144,29 +167,35 @@ Use `//` to add single-line comments:
 ---
 
 ## Standard Library
+
 ### Printing
+
 - `print(...)` – Print without newline
 - `println(...)` – Print with newline
 
 ### Utility
+
 - `range(n)` – Returns a list from `0` to `n-1`
 - `len(list)` – Returns length of list or string
 
 ---
 
 ## Examples
+
 ### Hello World
+
 ```ks
 println("Hello, World!");
 ```
 
 ### Bubble Sort
+
 ```ks
-function bubble_sort(numbers: [int]): [int] {
+function bubble_sort(numbers [int]): [int] {
     for j in range(len(numbers)) {
         for i in range(len(numbers) - j - 1) {
-            let n1 = numbers[i]!;
-            let n2 = numbers[i + 1]!;
+            let n1 = numbers[i];
+            let n2 = numbers[i + 1];
 
             if n1 > n2 {
                 numbers[i] = n2;
@@ -178,16 +207,10 @@ function bubble_sort(numbers: [int]): [int] {
 }
 ```
 
-#### Note!
-
-There we are using `numbers[i]!`, which means explicit cloning. Since, every value that we get, is originally not an actual value, but rahter an address to that value.
-That's why in this specific case, we are using cloning.
-
----
-
 ### Triangle Drawing
+
 ```ks
-function draw_triangle(size: int) {
+function draw_triangle(size int) {
     while size > 0 {
         let row = 0;
         while row < size {
@@ -201,8 +224,9 @@ function draw_triangle(size: int) {
 ```
 
 ### Unit Converter
+
 ```ks
-function to_meters(inches: float): float {
+function to_meters(inches float): float {
     return inches / 39.37f;
 }
 ```
@@ -210,5 +234,5 @@ function to_meters(inches: float): float {
 ---
 
 ## Author
-KyrylScript was designed and implemented by Kyryl Lebedenko Student of Vilnius Tech and Aalto University.
 
+KyrylScript was designed and implemented by Kyryl Lebedenko Student of Vilnius Tech.

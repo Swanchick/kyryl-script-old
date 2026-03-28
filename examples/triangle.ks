@@ -1,6 +1,6 @@
 //
 // Example of drawing a triangle in console
-// 
+//
 
 
 // ******
@@ -11,7 +11,7 @@
 // *
 
 
-function draw_triangle(size: int) {
+function draw_triangle(size int) {
     let column = 0;
 
     while column < size {

@@ -1,0 +1,10 @@
+[package]
+name = "ks-std"
+authors.workspace = true
+version.workspace = true
+edition = "2024"
+
+[dependencies]
+ks-core = { path = "../ks-core" }
+ks-global = { path = "../ks-global" }
+ks-vm = { path = "../ks-vm" }

@@ -1,4 +1,4 @@
-function bubble_sort(numbers: [int]) {
+function bubble_sort(numbers [int]) {
     for i in range(len(numbers)) {
         for j in range(len(numbers) - i - 1) {
             let n1 = numbers[j]!;
@@ -17,4 +17,3 @@ let numbers = [83, 209, 59, 68, 30, 60];
 println(numbers);
 bubble_sort(numbers);
 println(numbers);
-

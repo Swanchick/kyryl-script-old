@@ -1,0 +1,12 @@
+[package]
+name = "ks-core"
+authors.workspace = true
+version.workspace = true
+edition = "2024"
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+ks-global = { path = "../ks-global" }
+ks-vm = { path = "../ks-vm" }
